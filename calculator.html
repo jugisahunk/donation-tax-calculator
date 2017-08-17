@@ -1,0 +1,85 @@
+<html>
+   <head>
+     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script src="calculator.js"></script>
+     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   </head>
+   <body>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-xs-12">
+               <h3>
+                  Tax Calculator
+               </h3>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-12">
+               <h4>
+                  Select Donation Time Period
+               </h4>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-12">
+               <div class="radio">
+                  <label>
+                  <input type="radio" name="time-periods" id="committment-single-year" value="1" /> Single Year Donation (2017) - Earn 50% tax credits
+                  </label><br/>
+                  <label>
+                  <input type="radio" name="time-periods" id="committment-two-year" value="2" /> Two-Year Commitment (2017 and 2018) - Earn 75% tax credits
+                  </label>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-4">
+               <h4>
+                  Select Status
+               </h4>
+            </div>
+            <div class="col-xs-4">
+               <h4>
+                  Desired Tax Credit
+               </h4>
+            </div>
+            <div class="col-xs-4">
+               <h4>
+                  Taxable Income
+               </h4>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-4">
+               <div class="radio">
+                  <label>
+                  <input type="radio" name="status" id="status-single" value="1" /> Single
+                  </label>
+               </div>
+               <div class="radio">
+                  <label>
+                  <input type="radio" name="status" id="status-married" value="2" /> Married
+                  </label>
+               </div>
+            </div>
+            <div class="col-xs-4">
+               <input type="number" id="desired_credit">
+               <span id="max_credit"></span>
+            </div>
+            <div class="col-xs-4">
+               <input type="number" id="taxable_income">
+            </div>
+         </div>
+      </div>
+      <label>donation amount</label>
+      <div id="donation_amount"></div>
+      <br/>
+      <label>net cost of donation</label>
+      <div id="cost_of_donation"></div>
+      <br/>
+      <button id="calculateDonationAmount">
+      <span>Calculate</span>
+      </button>
+   </body>
+</html>
