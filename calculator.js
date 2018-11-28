@@ -1,74 +1,74 @@
-$( document ).ready(function() {
+jQuery( document ).ready(function() {
 	var committment=0, filing_status=0, desired_credit=0, taxable_income=0, donation_amount=0, net_cost_of_donation=0, business_status=0;
   
   function initializeCalculator(){
-  	$("#committment-single-year").trigger("click");
-    $("#status-single").trigger("click");
-    $("#status-business-no").trigger("click");
+  	jQuery("#committment-single-year").trigger("click");
+    jQuery("#status-single").trigger("click");
+    jQuery("#status-business-no").trigger("click");
   }
   
-  $("#desired_credit").change(function(){
-    desired_credit = $("#desired_credit").val();
+  jQuery("#desired_credit").change(function(){
+    desired_credit = jQuery("#desired_credit").val();
     if(business_status == 1){
       if(desired_credit > 100000){
-        $("#desired_credit").val(100000);
+        jQuery("#desired_credit").val(100000);
       }
     }else{
       if(filing_status == 1 && desired_credit > 1000){
-        $("#desired_credit").val(1000);
+        jQuery("#desired_credit").val(1000);
       }else if(filing_status == 2 && desired_credit > 2000){
-        $("#desired_credit").val(2000);      
+        jQuery("#desired_credit").val(2000);      
       }
     } 
   });
 
-  $("#committment-single-year").on("click",function(){
-  	committment = parseFloat($("#committment-single-year").attr("value"));
+  jQuery("#committment-single-year").on("click",function(){
+  	committment = parseFloat(jQuery("#committment-single-year").attr("value"));
   });
   
-  $("#committment-two-year").on("click",function(){
-  	committment = parseFloat($("#committment-two-year").attr("value"));
+  jQuery("#committment-two-year").on("click",function(){
+  	committment = parseFloat(jQuery("#committment-two-year").attr("value"));
   });
 
-  $("#status-single").on("click", function(){
-    filing_status = parseFloat($("#status-single").attr("value"));
-    $("#max_credit").text("Max credit is $1,000");
+  jQuery("#status-single").on("click", function(){
+    filing_status = parseFloat(jQuery("#status-single").attr("value"));
+    jQuery("#max_credit").text("Max credit is $1,000");
   });
 
-  $("#status-married").on("click", function(){
-    filing_status = parseFloat($("#status-married").attr("value"));
-    $("#max_credit").text("Max credit is $2,000");
+  jQuery("#status-married").on("click", function(){
+    filing_status = parseFloat(jQuery("#status-married").attr("value"));
+    jQuery("#max_credit").text("Max credit is $2,000");
   });
 
-  $("#status-business-yes").on("click", function(){
-    business_status = parseFloat($("#status-business-yes").attr("value"));
-    $("#max_credit").text("Max credit is $100,000");
+  jQuery("#status-business-yes").on("click", function(){
+    business_status = parseFloat(jQuery("#status-business-yes").attr("value"));
+    jQuery("#max_credit").text("Max credit is $100,000");
   });
 
-  $("#status-business-no").on("click", function(){
-    business_status = parseFloat($("#status-business-no").attr("value"));
+  jQuery("#status-business-no").on("click", function(){
+    business_status = parseFloat(jQuery("#status-business-no").attr("value"));
     if(filing_status == 1){
-      $("#max_credit").text("Max credit is $1,000");
+      jQuery("#max_credit").text("Max credit is $1,000");
     }else{
-      $("#max_credit").text("Max credit is $2,000");
+      jQuery("#max_credit").text("Max credit is $2,000");
     }
   });
   
-	$("#calculateDonationAmount").click(function(){
-   	desired_credit = parseFloat($("#desired_credit").val()),
-    taxable_income = parseFloat($("#taxable_income").val());
+	jQuery("#calculateDonationAmount").click(function(){
+   	desired_credit = parseFloat(jQuery("#desired_credit").val()),
+    taxable_income = parseFloat(jQuery("#taxable_income").val());
     
     if(isNaN(desired_credit) || isNaN(taxable_income)){
-    	$("#donation_amount").val("");
-    	$("#cost_of_donation").val("");
+    	jQuery("#donation_amount").val("");
+    	jQuery("#cost_of_donation").val("");
       return;
     }
     
     calculate_donation_amount();
     calculate_net_cost_of_deduction();
     
-		$("#donation_amount").text("$ " + donation_amount);
-    $("#cost_of_donation").text("$ " + net_cost_of_donation);
+		jQuery("#donation_amount").text("$ " + donation_amount);
+    jQuery("#cost_of_donation").text("$ " + net_cost_of_donation);
   });
   
   function calculate_donation_amount(){
@@ -156,3 +156,4 @@ $( document ).ready(function() {
   
   initializeCalculator();
 });
+
