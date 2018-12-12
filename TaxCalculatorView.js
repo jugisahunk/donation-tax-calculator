@@ -8,6 +8,7 @@ jQuery( document ).ready(function() {
         $("#status-single").trigger("click");
         $("#status-business-no").trigger("click");
         calculator = new Calculator();
+        console.log(tax_brackets);
     }
 
     $("#desired_credit").change(function(){
