@@ -1,7 +1,15 @@
+const FilingStatus = Object.freeze({
+    SINGLE:   Symbol("single"),
+    MARRIED:  Symbol("married"),
+    PASSTHROUGH: Symbol("pass-through")
+});
+
 class Calculator{
     constructor (tax_brackets){
         this.tax_brackets = tax_brackets;
     }
+
+    static get FilingStatus(){ return FilingStatus; }
 
     calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation){
         return Math.ceil(desired_credit + federal_tax + state_tax - donation);
@@ -13,10 +21,10 @@ class Calculator{
 
     get_tax_bracket(federal_or_state, taxable_income, filing_status){
         var filing_status_key;
-        if(filing_status == 1){
+        if(filing_status == Calculator.FilingStatus.SINGLE){
             filing_status_key = "single";
         }
-        else if(filing_status == 2) {
+        else if(filing_status == Calculator.FilingStatus.MARRIED) {
             filing_status_key = "married";
         }
 

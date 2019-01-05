@@ -109,7 +109,7 @@ describe("Donation Calculator", function(){
         var filing_status;
 
         beforeEach(function(){
-            filing_status = 1;
+            filing_status = Calculator.FilingStatus.SINGLE;
         });
 
         describe("federal calculations", function(){
@@ -185,7 +185,7 @@ describe("Donation Calculator", function(){
             var filing_status;
 
             beforeEach(function(){
-                filing_status = 1;
+                filing_status = Calculator.FilingStatus.SINGLE;
             });
 
             it("should calculate a federal tax amount as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
@@ -217,7 +217,7 @@ describe("Donation Calculator", function(){
             var filing_status;
 
             beforeEach(function(){
-                filing_status = 2;
+                filing_status = Calculator.FilingStatus.MARRIED;
             });
 
             it("should calculate a federal tax amount as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
@@ -264,6 +264,6 @@ describe("Donation Calculator", function(){
         });
     });
 
-    //TODO: create filing status enum
     //TODO: create federal / state enum
+    //TODO: create pass-through tests
 });
