@@ -244,6 +244,38 @@ describe("Donation Calculator", function(){
                 expect(actual_state_tax).toEqual(expected_state_tax);
             });
         });
+
+        xdescribe("filing pass-through", function(){
+            var filing_status;
+
+            beforeEach(function(){
+                filing_status = Calculator.FilingStatus.PASSTHROUGH;
+            });
+
+            it("should calculate a federal tax amount as : (donation amount * bracket %) + bracket flat amount", function(){
+                //arrange
+                var taxable_income = 750000;
+                var expected_fed_tax = 50;
+
+                //act
+                actual_fed_tax = calculator.calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status);
+
+                //assert
+                expect(actual_fed_tax).toEqual(expected_fed_tax);
+            });
+
+            it("should calculate a state tax amount as : (donation amount * bracket %) + bracket flat amount", function(){
+                //arrange
+                var taxable_income = 30000;
+                var expected_state_tax = 160;
+
+                //act
+                actual_state_tax = calculator.calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status);
+
+                //assert
+                expect(actual_state_tax).toEqual(expected_state_tax);
+            });
+        });
     });
 
     describe("given desired credit, fed and state tax amounts, and suggested donation amount", function(){

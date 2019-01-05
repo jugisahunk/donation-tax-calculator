@@ -17,12 +17,14 @@ class Calculator{
     static get FilingStatus(){ return FilingStatus; }
     static get Government(){ return Government; }
 
-    calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation){
-        return Math.ceil(desired_credit + federal_tax + state_tax - donation);
+    calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status) {
+        var tax_bracket = this.get_tax_bracket("federal", taxable_income, filing_status);
+        return this._calculate_tax(donation_amount, desired_credit, tax_bracket);
     }
 
-    calculate_suggested_donation_amount(desired_credit, yearly_committment){
-        return yearly_committment == 1 ? Math.ceil(desired_credit / .5) : Math.ceil(desired_credit / .75);
+    calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status) {
+        var tax_bracket = this.get_tax_bracket("state", taxable_income, filing_status);
+        return this._calculate_tax(donation_amount, desired_credit, tax_bracket);
     }
 
     get_tax_bracket(federal_or_state, taxable_income, filing_status){
@@ -49,17 +51,7 @@ class Calculator{
         
     }
 
-    calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status) {
-        var tax_bracket = this.get_tax_bracket("federal", taxable_income, filing_status);
-        return this.__calculate_tax(donation_amount, desired_credit, tax_bracket);
-    }
-
-    calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status) {
-        var tax_bracket = this.get_tax_bracket("state", taxable_income, filing_status);
-        return this.__calculate_tax(donation_amount, desired_credit, tax_bracket);
-    }
-
-    __calculate_tax(donation_amount, desired_credit, tax_bracket){
+    _calculate_tax(donation_amount, desired_credit, tax_bracket){
         if(tax_bracket.filing_status == 3) { //pass-through
 
         }
@@ -67,5 +59,13 @@ class Calculator{
             return ((donation_amount - desired_credit) * tax_bracket.percentage) + tax_bracket.constant;
         }
 
+    }
+
+    calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation){
+        return Math.ceil(desired_credit + federal_tax + state_tax - donation);
+    }
+
+    calculate_suggested_donation_amount(desired_credit, yearly_committment){
+        return yearly_committment == 1 ? Math.ceil(desired_credit / .5) : Math.ceil(desired_credit / .75);
     }
 }
