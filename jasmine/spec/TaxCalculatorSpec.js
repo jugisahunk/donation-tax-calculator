@@ -6,29 +6,34 @@ describe("Donation Calculator", function(){
                 "single" : [
                     {
                         "min_taxable_income" : "0",
-                        "max_taxable_income" : "10",
+                        "max_taxable_income" : "50000",
                         "percentage" : ".08",
                         "constant" : "0"
                     },
                     {
-                        "min_taxable_income" : "11",
-                        "max_taxable_income" : "50",
+                        "min_taxable_income" : "50001",
+                        "max_taxable_income" : "100000",
                         "percentage" : ".11",
-                        "constant" : "4"
+                        "constant" : "1000"
+                    },
+                    {
+                        "min_taxable_income" : "100001",
+                        "percentage" : ".99",
+                        "constant" : "1000000000"
                     }
                 ],
                 "married" : [
                     {
                         "min_taxable_income" : "0",
-                        "max_taxable_income" : "10",
+                        "max_taxable_income" : "50000",
                         "percentage" : ".1",
                         "constant" : "0"
                     },
                     {
-                        "min_taxable_income" : "11",
-                        "max_taxable_income" : "50",
+                        "min_taxable_income" : "50001",
+                        "max_taxable_income" : "100000",
                         "percentage" : ".12",
-                        "constant" : "6"
+                        "constant" : "1200"
                     }
                 ]
             },
@@ -36,97 +41,41 @@ describe("Donation Calculator", function(){
                 "single" : [
                     {
                         "min_taxable_income" : "0",
-                        "max_taxable_income" : "10",
+                        "max_taxable_income" : "30000",
                         "percentage" : ".01",
-                        "constant" : "0"
+                        "constant" : "100"
                     },
                     {
-                        "min_taxable_income" : "11",
-                        "max_taxable_income" : "50",
+                        "min_taxable_income" : "30001",
+                        "max_taxable_income" : "80000",
                         "percentage" : ".05",
-                        "constant" : "2"
+                        "constant" : "120"
+                    },
+                    {
+                        "min_taxable_income" : "80001",
+                        "percentage" : ".99",
+                        "constant" : "1000000000"
                     }
+
                 ],
                 "married" : [
                     {
                         "min_taxable_income" : "0",
-                        "max_taxable_income" : "10",
+                        "max_taxable_income" : "30000",
                         "percentage" : ".02",
-                        "constant" : "0"
+                        "constant" : "150"
                     },
                     {
-                        "min_taxable_income" : "11",
-                        "max_taxable_income" : "50",
+                        "min_taxable_income" : "30001",
+                        "max_taxable_income" : "80000",
                         "percentage" : ".09",
-                        "constant" : "4.5"
+                        "constant" : "200"
                     }
                 ]
             }
         }
 
         calculator = new Calculator(tax_brackets);
-    });
-
-    describe("given a taxable income and filing as 'single'", function(){
-        var filing_status, taxable_income;
-
-        beforeEach(function(){
-            filing_status = 1;
-            taxable_income = 5;
-        });
-
-        it("should calculate a federal tax amount (bracket % * taxable income) + bracket flat amount", function(){
-            //arrange
-            var expected_fed_tax = .4;
-
-            //act
-            actual_fed_tax = calculator.calculate_federal_tax(filing_status, taxable_income);
-
-            //assert
-            expect(actual_fed_tax).toEqual(expected_fed_tax);
-        });
-
-        it("should calculate a state tax amount (bracket % * taxable income) + bracket flat amount", function(){
-            //arrange
-            var expected_state_tax = .05;
-
-            //act
-            actual_state_tax = calculator.calculate_state_tax(filing_status, taxable_income);
-
-            //assert
-            expect(actual_state_tax).toEqual(expected_state_tax);
-        });
-    });
-
-    describe("given a taxable income and filing as 'married'", function(){
-        var filing_status, taxable_income;
-
-        beforeEach(function(){
-            filing_status = 2;
-                taxable_income = 35;
-        });
-
-        it("should calculate a federal tax amount (bracket % * taxable income) + bracket flat amount", function(){
-            //arrange
-            var expected_fed_tax = 10.2;
-
-            //act
-            actual_fed_tax = calculator.calculate_federal_tax(filing_status, taxable_income);
-
-            //assert
-            expect(actual_fed_tax).toEqual(expected_fed_tax);
-        });
-
-        it("should calculate a state tax amount (bracket % * taxable income) + bracket flat amount", function(){
-            //arrange
-            var expected_state_tax = 7.65;
-
-            //act
-            actual_state_tax = calculator.calculate_state_tax(filing_status, taxable_income);
-
-            //assert
-            expect(actual_state_tax).toEqual(expected_state_tax);
-        });
     });
 
     describe("given donation commitment of 1 year", function(){
@@ -155,6 +104,148 @@ describe("Donation Calculator", function(){
         });
     });
 
+    describe("given taxable income and filing status", function(){
+        var federal_or_state;
+        var filing_status;
+
+        beforeEach(function(){
+            filing_status = 1;
+        });
+
+        describe("federal calculations", function(){
+            beforeEach(function(){
+                federal_or_state = "federal";
+            });
+
+            it("should retrieve federal tax bracket rate and flat amount below top bracket", function(){
+                //arrange
+                var taxable_income = 50001;
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".11"), "constant" : parseFloat("1000")};
+
+                //act
+                var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
+
+                //assert
+                expect(actual_tax_bracket).toEqual(expected_tax_bracket);
+            });
+
+            it("should retrieve federal tax bracket rate and flat amount for max tax bracket", function(){
+                //arrange
+                var taxable_income = Number.MAX_SAFE_INTEGER;
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".99"), "constant" : parseFloat("1000000000")};
+
+                //act
+                var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
+
+                //assert
+                expect(actual_tax_bracket).toEqual(expected_tax_bracket);
+            });
+        });
+
+        describe("state calculations", function(){
+            beforeEach(function(){
+                federal_or_state = "state";
+            });
+
+            it("should retrieve state tax bracket rate and flat amount below top bracket", function(){
+                //arrange
+                var taxable_income = 30001;
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".05"), "constant" : parseFloat("120")};
+
+                //act
+                var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
+
+                //assert
+                expect(actual_tax_bracket).toEqual(expected_tax_bracket);
+            });
+
+            it("should retrieve state tax bracket rate and flat amount for max tax bracket", function(){
+                //arrange
+                var taxable_income = Number.MAX_SAFE_INTEGER;
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".99"), "constant" : parseFloat("1000000000")};
+
+                //act
+                var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
+
+                //assert
+                expect(actual_tax_bracket).toEqual(expected_tax_bracket);
+            });
+        });
+    });
+
+    describe("given a taxable income, donation amount, desired credit", function(){
+        var donation_amount, desired_credit;
+
+        beforeEach(function(){
+            donation_amount = 1000;
+            desired_credit = 500;
+        });
+
+        describe("filing single", function(){
+            var filing_status;
+
+            beforeEach(function(){
+                filing_status = 1;
+            });
+
+            it("should calculate a federal tax amount as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+                //arrange
+                var taxable_income = 50000;
+                var expected_fed_tax = 40;
+
+                //act
+                actual_fed_tax = calculator.calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status);
+
+                //assert
+                expect(actual_fed_tax).toEqual(expected_fed_tax);
+            });
+
+            it("should calculate a state tax amount as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+                //arrange
+                var taxable_income = 30000;
+                var expected_state_tax = 105;
+
+                //act
+                actual_state_tax = calculator.calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status);
+
+                //assert
+                expect(actual_state_tax).toEqual(expected_state_tax);
+            });
+        });
+
+        describe("filing married", function(){
+            var filing_status;
+
+            beforeEach(function(){
+                filing_status = 2;
+            });
+
+            it("should calculate a federal tax amount as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+                //arrange
+                var taxable_income = 50000;
+                var expected_fed_tax = 50;
+
+                //act
+                actual_fed_tax = calculator.calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status);
+
+                //assert
+                expect(actual_fed_tax).toEqual(expected_fed_tax);
+            });
+
+            it("should calculate a state tax amount as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+                //arrange
+                var taxable_income = 30000;
+                var expected_state_tax = 160;
+
+                //act
+                actual_state_tax = calculator.calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status);
+
+                //assert
+                expect(actual_state_tax).toEqual(expected_state_tax);
+            });
+        });
+    });
+
     describe("given desired credit, fed and state tax amounts, and suggested donation amount", function(){
         it("should calculate net cost of donation as desired credit + fed tax + state tax - suggested donation", function(){
             //arrange
@@ -172,21 +263,7 @@ describe("Donation Calculator", function(){
             expect(actual_cost).toEqual(expected_cost);
         });
     });
-    /*
-     *
-            var desired_credit = 5000,
-                federal_tax = 150,
-                state_tax = 78.4,
-                donation = 6000,
-     */
 
-    //TODO: create failure test if invalid donation value is used
-    //TODO: create failure test if invalid state tax value is used
-    //TODO: create failure test if invalid federal tax value is used
-    //TODO: create failure test if invalid desired credit value is used
-    //TODO: create failure test if invalid yearly commitment value is used
-    //TODO: create failure test if invalid commitment value is used
-    //TODO: create failure test if invalid filing status is used
-    //TODO: create failure test if invalid taxable amount is used
-    //TODO: create state tax tests to match federal
+    //TODO: create filing status enum
+    //TODO: create federal / state enum
 });
