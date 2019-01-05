@@ -114,7 +114,7 @@ describe("Donation Calculator", function(){
 
         describe("federal calculations", function(){
             beforeEach(function(){
-                federal_or_state = "federal";
+                federal_or_state = Calculator.Government.FEDERAL;
             });
 
             it("should retrieve federal tax bracket rate and flat amount below top bracket", function(){
