@@ -1,0 +1,21 @@
+.donation-tax-calc-main_header {
+    color: #be1d2c; 
+}
+
+.donation-tax-calc-description {
+    font-style: italic;
+}
+.donation-tax-calc-section-header {
+    color: white; 
+    background-color: #be1d2c; 
+    padding: 5px;
+}
+.donation-tax-calc-sub-section-header {
+    color: #be1d2c;
+}
+.donation-tax-calc-submit-button {
+    color: white; 
+    background-color: #be1d2c; 
+    border: #be1d2c;
+}
+
