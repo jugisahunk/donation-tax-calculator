@@ -34,7 +34,13 @@ describe("Donation Calculator", function(){
                         "max_taxable_income" : "100000",
                         "percentage" : ".12",
                         "constant" : "1200"
+                    },
+                    {
+                        "min_taxable_income" : "100001",
+                        "percentage" : ".75",
+                        "constant" : "5000"
                     }
+
                 ]
             },
             "state" : {
@@ -245,20 +251,21 @@ describe("Donation Calculator", function(){
             });
         });
 
-        xdescribe("filing pass-through", function(){
-            var filing_status;
+        describe("filing pass-through", function(){
+            var filing_status, is_pass_through;
 
             beforeEach(function(){
-                filing_status = Calculator.FilingStatus.PASSTHROUGH;
+                filing_status = Calculator.FilingStatus.MARRIED;
+                is_pass_through = true;
             });
 
             it("should calculate a federal tax amount as : (donation amount * bracket %) + bracket flat amount", function(){
                 //arrange
                 var taxable_income = 750000;
-                var expected_fed_tax = 50;
+                var expected_fed_tax = 5750;
 
                 //act
-                actual_fed_tax = calculator.calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status);
+                actual_fed_tax = calculator.calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through);
 
                 //assert
                 expect(actual_fed_tax).toEqual(expected_fed_tax);
@@ -267,10 +274,10 @@ describe("Donation Calculator", function(){
             it("should calculate a state tax amount as : (donation amount * bracket %) + bracket flat amount", function(){
                 //arrange
                 var taxable_income = 30000;
-                var expected_state_tax = 160;
+                var expected_state_tax = 170;
 
                 //act
-                actual_state_tax = calculator.calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status);
+                actual_state_tax = calculator.calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through);
 
                 //assert
                 expect(actual_state_tax).toEqual(expected_state_tax);
@@ -297,5 +304,5 @@ describe("Donation Calculator", function(){
         });
     });
 
-    //TODO: create pass-through tests
+    //TODO: find new home for TaxCalculator.js
 });

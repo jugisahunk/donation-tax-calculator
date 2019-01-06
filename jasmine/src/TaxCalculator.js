@@ -17,14 +17,14 @@ class Calculator{
     static get FilingStatus(){ return FilingStatus; }
     static get Government(){ return Government; }
 
-    calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status) {
+    calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
         var tax_bracket = this.get_tax_bracket("federal", taxable_income, filing_status);
-        return this._calculate_tax(donation_amount, desired_credit, tax_bracket);
+        return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
     }
 
-    calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status) {
+    calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
         var tax_bracket = this.get_tax_bracket("state", taxable_income, filing_status);
-        return this._calculate_tax(donation_amount, desired_credit, tax_bracket);
+        return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
     }
 
     get_tax_bracket(federal_or_state, taxable_income, filing_status){
@@ -51,14 +51,20 @@ class Calculator{
         
     }
 
-    _calculate_tax(donation_amount, desired_credit, tax_bracket){
-        if(tax_bracket.filing_status == 3) { //pass-through
+    _calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through){
+        if(is_pass_through)
+            return this._calculate_pass_through_tax(donation_amount, desired_credit, tax_bracket);
+        else
+            return this._calculate_non_pass_through_tax(donation_amount, desired_credit, tax_bracket);
 
-        }
-        else {
-            return ((donation_amount - desired_credit) * tax_bracket.percentage) + tax_bracket.constant;
-        }
+    }
 
+    _calculate_pass_through_tax(donation_amount, desired_credit, tax_bracket){
+        return donation_amount * tax_bracket.percentage + tax_bracket.constant;
+    }
+
+    _calculate_non_pass_through_tax(donation_amount, desired_credit, tax_bracket){
+        return (donation_amount - desired_credit) * tax_bracket.percentage + tax_bracket.constant;
     }
 
     calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation){
