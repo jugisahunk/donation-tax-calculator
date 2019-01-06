@@ -74,4 +74,12 @@ class Calculator{
     calculate_suggested_donation_amount(desired_credit, yearly_committment){
         return yearly_committment == 1 ? Math.ceil(desired_credit / .5) : Math.ceil(desired_credit / .75);
     }
+
+    get_max_credit_suggestion(filing_status, is_pass_through){
+        if(is_pass_through) { return 100000; }
+        
+        if(filing_status == Calculator.FilingStatus.SINGLE){ return 1000; }
+
+        if(filing_status == Calculator.FilingStatus.MARRIED){ return 2000; }
+    }
 }

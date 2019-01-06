@@ -109,6 +109,45 @@ describe("Donation Calculator", function(){
             expect(actual_donation_amount).toEqual(expected_donation_amount);
         });
     });
+    
+    describe("max credit suggestions", function(){
+        it("filing single should return a max credit suggestion of $1,000", function(){
+            //arrange
+            var filing_status = Calculator.FilingStatus.SINGLE;
+            var expected_max_credit_suggestion = 1000;
+
+            //act
+            var actual_max_credit_suggestion = calculator.get_max_credit_suggestion(filing_status); 
+            
+            //assert
+            expect(actual_max_credit_suggestion).toEqual(expected_max_credit_suggestion);
+        });
+
+        it("filing married should return a max credit suggestion of $2,000", function(){
+            //arrange
+            var filing_status = Calculator.FilingStatus.MARRIED;
+            var expected_max_credit_suggestion = 2000;
+
+            //act
+            var actual_max_credit_suggestion = calculator.get_max_credit_suggestion(filing_status); 
+            
+            //assert
+            expect(actual_max_credit_suggestion).toEqual(expected_max_credit_suggestion);
+        });
+
+        it("filing as a pass-through entity should return a max credit suggestion of $100,000", function(){
+            //arrange
+            var filing_status = Calculator.FilingStatus.MARRIED;
+            var is_pass_through = true;
+            var expected_max_credit_suggestion = 100000;
+
+            //act
+            var actual_max_credit_suggestion = calculator.get_max_credit_suggestion(filing_status, is_pass_through); 
+            
+            //assert
+            expect(actual_max_credit_suggestion).toEqual(expected_max_credit_suggestion);
+        });
+    });
 
     describe("given taxable income and filing status", function(){
         var federal_or_state;
