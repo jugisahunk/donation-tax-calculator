@@ -1,61 +1,78 @@
 jQuery( document ).ready(function() {
 
-    var committment=0, filing_status=Calculator.FilingStatus.SINGLE, desired_credit=0, taxable_income=0, donation_amount=0, net_cost_of_donation=0, business_status=0, calculator; 
+    var committment=0, filing_status=Calculator.FilingStatus.SINGLE, desired_credit=0, taxable_income=0, donation_amount=0, net_cost_of_donation=0, is_pass_through=false, calculator; 
 
     (function($) {})( jQuery );
 
     function initializeCalculator(){
+        calculator = new Calculator(window.tax_brackets);
         $("#committment-single-year").trigger("click");
         $("#status-single").trigger("click");
         $("#status-business-no").trigger("click");
-        calculator = new Calculator(window.tax_brackets);
+        $("#single-year-text").text(get_commitment_year_text(1));
+        $("#two-year-text").text(get_commitment_year_text(2));
+    }
+
+    function validate_max_credit_amount(){
+        var max_credit_suggestion = calculator.get_max_credit_suggestion(filing_status, is_pass_through);
+
+        if(desired_credit > max_credit_suggestion){
+            desired_credit = max_credit_suggestion;
+            $("#desired_credit").val(max_credit_suggestion);
+        }
+    }
+
+    function get_commitment_year_text(years_of_commitment){
+        var current_year = (new Date()).getFullYear();
+        if(years_of_commitment == 1){
+            return `Single Year Commitment (${current_year}) - Earn 50% tax credits`;
+        }else if(years_of_commitment == 2){
+            return `Two Year Commitment (${current_year} and ${current_year+1}) - Earn 75% tax credits`;
+        }
     }
 
     $("#desired_credit").change(function(){
         desired_credit = $("#desired_credit").val();
-        if(business_status == 1){
-            if(desired_credit > 100000){
-                $("#desired_credit").val(100000);
-            }
-        }else{
-            if(filing_status == Calculator.FilingStatus.SINGLE && desired_credit > 1000){
-                $("#desired_credit").val(1000);
-            }else if(filing_status == Calculator.FilingStatus.MARRIED && desired_credit > 2000){
-                $("#desired_credit").val(2000);      
-            }
-        } 
+        validate_max_credit_amount();
     });
 
     $("#committment-single-year").on("click",function(){
         committment = parseFloat($("#committment-single-year").attr("value"));
+        $("#committment-single-year").val(get_commitment_year_text());
     });
 
     $("#committment-two-year").on("click",function(){
         committment = parseFloat($("#committment-two-year").attr("value"));
+        $("#committment-single-year").val(get_commitment_year_text());
     });
+    
+    function setMaxCreditSuggestion(){
+        var max_credit_suggestion = calculator.get_max_credit_suggestion(filing_status,is_pass_through); 
+        $("#max_credit").text(`Max credit is $${max_credit_suggestion.toLocaleString()}`);
+    }
 
     $("#status-single").on("click", function(){
         filing_status = $("#status-single").attr("value");
-        $("#max_credit").text("Max credit is $1,000");
+        setMaxCreditSuggestion();
+        validate_max_credit_amount();
     });
 
     $("#status-married").on("click", function(){
         filing_status = $("#status-married").attr("value");
-        $("#max_credit").text("Max credit is $2,000");
+        setMaxCreditSuggestion();
+        validate_max_credit_amount();
     });
 
     $("#status-business-yes").on("click", function(){
-        business_status = parseFloat($("#status-business-yes").attr("value"));
-        $("#max_credit").text("Max credit is $100,000");
+        is_pass_through = true;
+        setMaxCreditSuggestion();
+        validate_max_credit_amount();
     });
 
     $("#status-business-no").on("click", function(){
-        business_status = parseFloat($("#status-business-no").attr("value"));
-        if(filing_status == Calculator.FilingStatus.SINGLE){
-            $("#max_credit").text("Max credit is $1,000");
-        }else{
-            $("#max_credit").text("Max credit is $2,000");
-        }
+        is_pass_through = false;
+        setMaxCreditSuggestion();
+        validate_max_credit_amount();
     });
 
     $("#calculateDonationAmount").click(function(){
@@ -75,8 +92,8 @@ jQuery( document ).ready(function() {
 
         net_cost_of_donation = calculator.calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation_amount); 
 
-        $("#donation_amount").text("$ " + donation_amount);
-        $("#cost_of_donation").text("$ " + net_cost_of_donation);
+        $("#donation_amount").text(`$${donation_amount.toLocaleString()}`);
+        $("#cost_of_donation").text(`$${net_cost_of_donation.toLocaleString()}`);
     });
 
     initializeCalculator();
