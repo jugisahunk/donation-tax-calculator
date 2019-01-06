@@ -303,6 +303,4 @@ describe("Donation Calculator", function(){
             expect(actual_cost).toEqual(expected_cost);
         });
     });
-
-    //TODO: find new home for TaxCalculator.js
 });
