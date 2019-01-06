@@ -279,14 +279,15 @@ describe("Donation Calculator", function(){
     });
 
     describe("given desired credit, fed and state tax amounts, and suggested donation amount", function(){
-        it("should calculate net cost of donation as desired credit + fed tax + state tax - suggested donation", function(){
+        it("should calculate net cost of donation as: suggested donation - (desired credit + fed tax + state tax)", function(){
             //arrange
             //credit + fed tax + state tax - donation
+
             var desired_credit = 5000,
                 federal_tax = 150,
                 state_tax = 78.4,
                 donation = 6000,
-                expected_cost = -771;
+                expected_cost = 771;
 
             //act
             var actual_cost = calculator.calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation);
@@ -296,6 +297,5 @@ describe("Donation Calculator", function(){
         });
     });
 
-    //TODO: create federal / state enum
     //TODO: create pass-through tests
 });

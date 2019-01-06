@@ -62,7 +62,7 @@ class Calculator{
     }
 
     calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation){
-        return Math.ceil(desired_credit + federal_tax + state_tax - donation);
+        return Math.trunc(donation - (desired_credit + federal_tax + state_tax));
     }
 
     calculate_suggested_donation_amount(desired_credit, yearly_committment){
