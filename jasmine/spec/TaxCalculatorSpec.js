@@ -333,7 +333,7 @@ describe("Donation Calculator", function(){
                 federal_tax = 150,
                 state_tax = 78.4,
                 donation = 6000,
-                expected_cost = 771;
+                expected_cost = -771;
 
             //act
             var actual_cost = calculator.calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation);
