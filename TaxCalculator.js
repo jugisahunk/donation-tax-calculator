@@ -17,12 +17,25 @@ class Calculator{
     static get FilingStatus(){ return FilingStatus; }
     static get Government(){ return Government; }
 
-    calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
+
+    calculate_suggested_donation_amount(desired_credit, yearly_committment){
+        return yearly_committment == 1 ? Math.ceil(desired_credit / .5) : Math.ceil(desired_credit / .75);
+    }
+
+    get_max_credit_suggestion(filing_status, is_pass_through){
+        if(is_pass_through) { return 100000; }
+        
+        if(filing_status == Calculator.FilingStatus.SINGLE){ return 1000; }
+
+        if(filing_status == Calculator.FilingStatus.MARRIED){ return 2000; }
+    }
+
+    calculate_federal_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
         var tax_bracket = this.get_tax_bracket("federal", taxable_income, filing_status);
         return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
     }
 
-    calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
+    calculate_state_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
         var tax_bracket = this.get_tax_bracket("state", taxable_income, filing_status);
         return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
     }
@@ -52,34 +65,10 @@ class Calculator{
     }
 
     _calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through){
-        if(is_pass_through)
-            return this._calculate_pass_through_tax(donation_amount, desired_credit, tax_bracket);
-        else
-            return this._calculate_non_pass_through_tax(donation_amount, desired_credit, tax_bracket);
-
-    }
-
-    _calculate_pass_through_tax(donation_amount, desired_credit, tax_bracket){
-        return donation_amount * tax_bracket.percentage + tax_bracket.constant;
-    }
-
-    _calculate_non_pass_through_tax(donation_amount, desired_credit, tax_bracket){
         return (donation_amount - desired_credit) * tax_bracket.percentage + tax_bracket.constant;
     }
 
-    calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation){
-        return Math.trunc(desired_credit + federal_tax + state_tax - donation);
-    }
-
-    calculate_suggested_donation_amount(desired_credit, yearly_committment){
-        return yearly_committment == 1 ? Math.ceil(desired_credit / .5) : Math.ceil(desired_credit / .75);
-    }
-
-    get_max_credit_suggestion(filing_status, is_pass_through){
-        if(is_pass_through) { return 100000; }
-        
-        if(filing_status == Calculator.FilingStatus.SINGLE){ return 1000; }
-
-        if(filing_status == Calculator.FilingStatus.MARRIED){ return 2000; }
+    calculate_cost_of_donation(desired_credit, federal_tax_benefit, state_tax_benefit, donation){
+        return Math.trunc(donation - desired_credit - federal_tax_benefit - state_tax_benefit);
     }
 }
