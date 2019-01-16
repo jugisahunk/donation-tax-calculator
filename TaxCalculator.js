@@ -50,22 +50,20 @@ class Calculator{
 
             if(i == tax_brackets.length -1) { //reached top of bracket
                 var percentage = parseFloat(bracket_data.percentage);
-                var constant   = parseFloat(bracket_data.constant);
 
-                return { "filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : percentage, "constant" : constant };
+                return { "filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : percentage};
             }
             else if(taxable_income >= min_taxable_income && taxable_income <= max_taxable_income){
                 var percentage = parseFloat(bracket_data.percentage);
-                var constant   = parseFloat(bracket_data.constant);
 
-                return { "filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : percentage, "constant" : constant };
+                return { "filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : percentage};
             }
         }
         
     }
 
     _calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through){
-        return (donation_amount - desired_credit) * tax_bracket.percentage + tax_bracket.constant;
+        return (donation_amount - desired_credit) * tax_bracket.percentage;
     }
 
     calculate_cost_of_donation(desired_credit, federal_tax_benefit, state_tax_benefit, donation){

@@ -17,7 +17,7 @@ window.tax_brackets = {
                 "min_taxable_income" : "38701",
                 "max_taxable_income" : "82500",
                 "percentage" : ".22",
-                "constant" : "38700"
+                "constant" : "4453.5"
             },
             {
                 "min_taxable_income" : "82501",

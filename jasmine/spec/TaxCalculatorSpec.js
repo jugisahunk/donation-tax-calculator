@@ -7,43 +7,36 @@ describe("Donation Calculator", function(){
                     {
                         "min_taxable_income" : "0",
                         "max_taxable_income" : "9525",
-                        "percentage" : ".1",
-                        "constant" : "0"
+                        "percentage" : ".1"
                     },
                     {
                         "min_taxable_income" : "9526",
                         "max_taxable_income" : "38700",
-                        "percentage" : ".12",
-                        "constant" : "952.50"
+                        "percentage" : ".12"
                     },
                     {
                         "min_taxable_income" : "38701",
                         "max_taxable_income" : "82500",
-                        "percentage" : ".22",
-                        "constant" : "4453.5"
+                        "percentage" : ".22"
                     },
                     {
                         "min_taxable_income" : "82501",
                         "max_taxable_income" : "157500",
-                        "percentage" : ".24",
-                        "constant" : "14089.5"
+                        "percentage" : ".24"
                     },
                     {
                         "min_taxable_income" : "157501",
                         "max_taxable_income" : "200000",
-                        "percentage" : ".32",
-                        "constant" : "32089.5"
+                        "percentage" : ".32"
                     },
                     {
                         "min_taxable_income" : "200001",
                         "max_taxable_income" : "500000",
-                        "percentage" : ".35",
-                        "constant" : "45689.5"
+                        "percentage" : ".35"
                     },
                     {
                         "min_taxable_income" : "500001",
-                        "percentage" : ".37",
-                        "constant" : "150689.5"
+                        "percentage" : ".37"
                     }
 
                 ],
@@ -51,43 +44,36 @@ describe("Donation Calculator", function(){
                     {
                         "min_taxable_income" : "0",
                         "max_taxable_income" : "19050",
-                        "percentage" : ".1",
-                        "constant" : ""
+                        "percentage" : ".1"
                     },
                     {
                         "min_taxable_income" : "19051",
                         "max_taxable_income" : "77400",
-                        "percentage" : ".12",
-                        "constant" : "1905"
+                        "percentage" : ".12"
                     },
                     {
                         "min_taxable_income" : "77401",
                         "max_taxable_income" : "165000",
-                        "percentage" : ".22",
-                        "constant" : "8907"
+                        "percentage" : ".22"
                     },
                     {
                         "min_taxable_income" : "165001",
                         "max_taxable_income" : "315000",
-                        "percentage" : ".24",
-                        "constant" : "28179"
+                        "percentage" : ".24"
                     },
                     {
                         "min_taxable_income" : "315001",
                         "max_taxable_income" : "400000",
-                        "percentage" : ".32",
-                        "constant" : "64179"
+                        "percentage" : ".32"
                     },
                     {
                         "min_taxable_income" : "400001",
                         "max_taxable_income" : "600000",
-                        "percentage" : ".35",
-                        "constant" : "91379"
+                        "percentage" : ".35"
                     },
                     {
                         "min_taxable_income" : "600001",
-                        "percentage" : ".37",
-                        "constant" : "161379"
+                        "percentage" : ".37"
                     }
                 ]
             },
@@ -96,37 +82,31 @@ describe("Donation Calculator", function(){
                     {
                         "min_taxable_income" : "0",
                         "max_taxable_income" : "1000",
-                        "percentage" : ".005",
-                        "constant" : "0"
+                        "percentage" : ".005"
                     },
                     {
                         "min_taxable_income" : "1001",
                         "max_taxable_income" : "2500",
-                        "percentage" : ".01",
-                        "constant" : "5"
+                        "percentage" : ".01"
                     },
                     {
                         "min_taxable_income" : "2501",
                         "max_taxable_income" : "3750",
-                        "percentage" : ".02",
-                        "constant" : "20"
+                        "percentage" : ".02"
                     },
                     {
                         "min_taxable_income" : "3751",
                         "max_taxable_income" : "4900",
-                        "percentage" : ".03",
-                        "constant" : "45"
+                        "percentage" : ".03"
                     },
                     {
                         "min_taxable_income" : "4901",
                         "max_taxable_income" : "7200",
-                        "percentage" : ".04",
-                        "constant" : "79.5"
+                        "percentage" : ".04"
                     },
                     {
                         "min_taxable_income" : "7201",
-                        "percentage" : ".05",
-                        "constant" : "171.5"
+                        "percentage" : ".05"
                     }
 
                 ],
@@ -134,37 +114,31 @@ describe("Donation Calculator", function(){
                     {
                         "min_taxable_income" : "0",
                         "max_taxable_income" : "2000",
-                        "percentage" : ".005",
-                        "constant" : "0"
+                        "percentage" : ".005"
                     },
                     {
                         "min_taxable_income" : "2001",
                         "max_taxable_income" : "5000",
-                        "percentage" : ".01",
-                        "constant" : "10"
+                        "percentage" : ".01"
                     },
                     {
                         "min_taxable_income" : "5001",
                         "max_taxable_income" : "7500",
-                        "percentage" : ".02",
-                        "constant" : "40"
+                        "percentage" : ".02"
                     },
                     {
                         "min_taxable_income" : "7501",
                         "max_taxable_income" : "9800",
-                        "percentage" : ".03",
-                        "constant" : "90"
+                        "percentage" : ".03"
                     },
                     {
                         "min_taxable_income" : "9801",
                         "max_taxable_income" : "12200",
-                        "percentage" : ".04",
-                        "constant" : "159"
+                        "percentage" : ".04"
                     },
                     {
                         "min_taxable_income" : "12201",
-                        "percentage" : ".05",
-                        "constant" : "255"
+                        "percentage" : ".05"
                     }
                 ]
             }
@@ -246,15 +220,15 @@ describe("Donation Calculator", function(){
             filing_status = Calculator.FilingStatus.SINGLE;
         });
 
-        describe("federal calculations", function(){
+        describe("federal benefit calculations", function(){
             beforeEach(function(){
                 federal_or_state = Calculator.Government.FEDERAL;
             });
 
-            it("should retrieve federal tax bracket rate and flat amount below top bracket", function(){
+            it("should retrieve federal tax bracket rate below top bracket", function(){
                 //arrange
                 var taxable_income = 50001;
-                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".22"), "constant" : parseFloat("4453.5")};
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".22")};
 
                 //act
                 var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
@@ -266,7 +240,7 @@ describe("Donation Calculator", function(){
             it("should retrieve federal tax bracket rate and flat amount for max tax bracket", function(){
                 //arrange
                 var taxable_income = Number.MAX_SAFE_INTEGER;
-                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".37"), "constant" : parseFloat("150689.5")};
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".37")};
 
                 //act
                 var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
@@ -284,7 +258,7 @@ describe("Donation Calculator", function(){
             it("should retrieve state tax bracket rate and flat amount below top bracket", function(){
                 //arrange
                 var taxable_income = 5000;
-                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".04"), "constant" : parseFloat("79.5")};
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".04")};
 
                 //act
                 var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
@@ -296,7 +270,7 @@ describe("Donation Calculator", function(){
             it("should retrieve state tax bracket rate and flat amount for max tax bracket", function(){
                 //arrange
                 var taxable_income = Number.MAX_SAFE_INTEGER;
-                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".05"), "constant" : parseFloat("171.5")};
+                var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".05")};
 
                 //act
                 var actual_tax_bracket = calculator.get_tax_bracket(federal_or_state, taxable_income, filing_status);
@@ -322,10 +296,10 @@ describe("Donation Calculator", function(){
                 filing_status = Calculator.FilingStatus.SINGLE;
             });
 
-            it("should calculate a federal tax benefit: (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+            it("should calculate a federal tax benefit: (donation amount - desired credit) * bracket percentage", function(){
                 //arrange
                 var taxable_income = 50000;
-                var expected_fed_tax_benefit = 4563.5;
+                var expected_fed_tax_benefit = (.22 * (donation_amount - desired_credit));
 
                 //act
                 actual_fed_tax_benefit = calculator.calculate_federal_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);
@@ -334,16 +308,16 @@ describe("Donation Calculator", function(){
                 expect(actual_fed_tax_benefit).toEqual(expected_fed_tax_benefit);
             });
 
-            it("should calculate a state tax benefit: (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+            it("should calculate a state tax benefit: (donation amount - desired credit) * bracket %", function(){
                 //arrange
                 var taxable_income = 4000;
-                var expected_state_benefit = 60;
+                var expected_state_tax_benefit = (.03 * (donation_amount - desired_credit));
 
                 //act
                 actual_state_tax_benefit = calculator.calculate_state_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);
 
                 //assert
-                expect(actual_state_tax_benefit).toEqual(expected_state_benefit);
+                expect(actual_state_tax_benefit).toEqual(expected_state_tax_benefit);
             });
         });
 
@@ -354,10 +328,10 @@ describe("Donation Calculator", function(){
                 filing_status = Calculator.FilingStatus.MARRIED;
             });
 
-            it("should calculate a federal tax benefit as : (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+            it("should calculate a federal tax benefit as : (donation amount - desired credit) * bracket %", function(){
                 //arrange
                 var taxable_income = 50000;
-                var expected_fed_tax_benefit = 1965;
+                var expected_fed_tax_benefit = .12 * (donation_amount - desired_credit);
 
                 //act
                 actual_fed_tax_benefit = calculator.calculate_federal_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);
@@ -369,7 +343,7 @@ describe("Donation Calculator", function(){
             it("should calculate a state tax benefit: (donation amount - desired credit) * bracket % + bracket flat amount", function(){
                 //arrange
                 var taxable_income = 30000;
-                var expected_state_benefit = 280;
+                var expected_state_benefit = (donation_amount - desired_credit) * .05;
 
                 //act
                 actual_state_tax_benefit = calculator.calculate_state_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);

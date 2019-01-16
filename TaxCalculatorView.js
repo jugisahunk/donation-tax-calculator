@@ -1,4 +1,4 @@
-jQuery( document ).ready(function() {
+jQuery( document ).ready(function($) {
 
     var committment=0, filing_status=Calculator.FilingStatus.SINGLE, desired_credit=0, taxable_income=0, donation_amount=0, net_cost_of_donation=0, is_pass_through=false, calculator; 
 
@@ -37,13 +37,13 @@ jQuery( document ).ready(function() {
     });
 
     $("#committment-single-year").on("click",function(){
-        committment = parseFloat($("#committment-single-year").attr("value"));
+        committment = 1;
         $("#committment-single-year").val(get_commitment_year_text());
     });
 
     $("#committment-two-year").on("click",function(){
-        committment = parseFloat($("#committment-two-year").attr("value"));
-        $("#committment-single-year").val(get_commitment_year_text());
+        committment = 2;
+        $("#committment-two-year").val(get_commitment_year_text());
     });
     
     function setMaxCreditSuggestion(){
@@ -75,7 +75,12 @@ jQuery( document ).ready(function() {
         validate_max_credit_amount();
     });
 
-    $("#calculateDonationAmount").click(function(){
+    $("#cost_header").on("click", function(){
+        $("#cost-message").toggleClass("donation-tax-calc-cost-message");
+        $("#cost-message").toggleClass("hidden");
+    });
+
+    $("#calculateDonationAmount").click(function(event){
         desired_credit = parseFloat($("#desired_credit").val());
         taxable_income = parseFloat($("#taxable_income").val());
 
@@ -87,13 +92,26 @@ jQuery( document ).ready(function() {
 
         donation_amount = calculator.calculate_suggested_donation_amount(desired_credit, committment);
 
-        var federal_tax = calculator.calculate_federal_tax(taxable_income, donation_amount, desired_credit, filing_status);
-        var state_tax = calculator.calculate_state_tax(taxable_income, donation_amount, desired_credit, filing_status);
+        var federal_tax = calculator.calculate_federal_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);
+        var state_tax = calculator.calculate_state_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);
 
         net_cost_of_donation = calculator.calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation_amount); 
 
-        $("#donation_amount").text(`$${donation_amount.toLocaleString()}`);
+        console.log(`credit: ${desired_credit} fed: ${federal_tax}, state: ${state_tax}, donation: ${donation_amount}`);
+        console.log(`net cost: ${net_cost_of_donation}`);
+
+        if(net_cost_of_donation < 0){
+            $("#cost-message").addClass("donation-tax-calc-cost-message");
+            $("#cost-message").removeClass("hidden");
+            $("#cost_explanation").removeClass("hidden");
+        } else {
+
+            $("#cost-message").addClass("hidden");
+            $("#cost_explanation").removeClass("hidden");
+        }
+
         $("#cost_of_donation").text(`$${net_cost_of_donation.toLocaleString()}`);
+        $("#donation_amount").text(`$${donation_amount.toLocaleString()}`);
     });
 
     initializeCalculator();

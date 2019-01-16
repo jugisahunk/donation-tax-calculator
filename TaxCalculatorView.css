@@ -18,4 +18,18 @@
     background-color: #be1d2c; 
     border: #be1d2c;
 }
-
+.donation-tax-calc-cost-message{
+    background-color: green;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.donation-tax-calc-cost-message h3{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.hidden{
+    display: none;
+}

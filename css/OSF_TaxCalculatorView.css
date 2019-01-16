@@ -1,0 +1,48 @@
+/*
+Theme Name: osfkids
+Theme URI: yoururl
+Author: Jason Knight
+Version: 1.0 
+.
+.
+.
+*/
+
+.donation-tax-calc-main_header {
+    color: #28b89a; 
+    font-size: 22px !important;
+}
+
+.donation-tax-calc-description {
+    font-style: italic !important;
+}
+.donation-tax-calc-section-header {
+    color: white !important; 
+    background-color: #28b89a !important; 
+    padding: 5px !important;
+}
+.donation-tax-calc-sub-section-header {
+    color: #28b89a !important;
+    font-size: 22px !important;
+}
+.donation-tax-calc-submit-button {
+    color: white !important; 
+    background-color: #4a97c2 !important; 
+    border: #4a97c2 !important;
+}
+.donation-tax-calc-cost-message{
+    background-color: green !important;
+    color: white !important;
+    text-align: center !important;
+    font-size: 22px !important;
+    padding: 5px; !important;
+    margin-top: 0px; !important;
+    margin-bottom: 0px; !important;
+}
+.donation-tax-calc-cost-message h3{
+    margin-top: 0px; !important;
+    margin-bottom: 0px; !important;
+}
+.hidden{
+    display: none !important;
+}
