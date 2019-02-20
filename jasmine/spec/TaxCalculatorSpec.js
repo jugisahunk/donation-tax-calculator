@@ -212,6 +212,18 @@ describe("Donation Calculator", function(){
         });
     });
 
+    describe("given a state tax bracket", function(){
+        it("should return the maximum state tax rate found regardless of filing status", function(){
+            //arrange
+            var expected_max_state_tax_rate = .05;
+            //act
+            var actual_max_state_tax_rate = calculator.get_max_state_tax_rate();
+            //assert
+            expect(actual_max_state_tax_rate).toEqual(expected_max_state_tax_rate); 
+
+        })
+    })
+
     describe("given taxable income and filing status", function(){
         var federal_or_state;
         var filing_status;
@@ -357,8 +369,6 @@ describe("Donation Calculator", function(){
     describe("given desired credit, fed and state tax benefits, and suggested donation amount", function(){
         it("should calculate net cost of a donation as: suggested donation - (desired credit + fed tax + state tax)", function(){
             //arrange
-            //credit + fed tax + state tax - donation
-
             var desired_credit = 2000,
                 federal_tax_benefit = 150,
                 state_tax_benefit = 78.4,
@@ -372,4 +382,20 @@ describe("Donation Calculator", function(){
             expect(actual_cost).toEqual(expected_cost);
         });
     });
+
+    describe("given fed and state tax benefits, and suggested donation amount", function(){
+        it("should calculate next cost of a donation to a typical, 501(3)(c) org as: suggested donation - (fed tax benefit + max state tax benefit)", function(){
+            //arrange
+            var federal_tax_benefit = 150,
+                state_tax_benefit = 78.4,
+                donation = 4000,
+                expected_cost = 3771;
+
+            //act
+            var actual_cost = calculator.calculate_cost_of_typical_donation(federal_tax_benefit, state_tax_benefit, donation);
+
+            //assert
+            expect(actual_cost).toEqual(expected_cost);
+        })
+    })
 });

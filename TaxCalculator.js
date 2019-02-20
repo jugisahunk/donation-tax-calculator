@@ -29,7 +29,15 @@ class Calculator{
 
         if(filing_status == Calculator.FilingStatus.MARRIED){ return 2000; }
     }
+    get_max_state_tax_rate(){
+        var 
+            single_max_tax_rate = this.get_tax_bracket(Government.STATE, Number.MAX_SAFE_INTEGER, FilingStatus.SINGLE),
+            married_max_tax_rate = this.get_tax_bracket(Government.STATE, Number.MAX_SAFE_INTEGER, FilingStatus.MARRIED);
 
+        console.log(`single: ${single_max_tax_rate.percentage}, married: ${married_max_tax_rate.percentage}`);
+
+        return Math.max(single_max_tax_rate.percentage, married_max_tax_rate.percentage);
+    }
     calculate_federal_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
         var tax_bracket = this.get_tax_bracket("federal", taxable_income, filing_status);
         return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
@@ -68,5 +76,9 @@ class Calculator{
 
     calculate_cost_of_donation(desired_credit, federal_tax_benefit, state_tax_benefit, donation){
         return Math.trunc(donation - desired_credit - federal_tax_benefit - state_tax_benefit);
+    }
+
+    calculate_cost_of_typical_donation(federal_tax_benefit, state_tax_benefit, donation){
+        return Math.trunc(donation - federal_tax_benefit - state_tax_benefit);
     }
 }
