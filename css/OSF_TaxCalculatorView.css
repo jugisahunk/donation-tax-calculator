@@ -30,6 +30,14 @@ Version: 1.0
     background-color: #4a97c2 !important; 
     border: #4a97c2 !important;
 }
+.donation_tax_calc-typical_donation_cost_section{
+    background-color: #e8ecf0 !important;
+    text-align: center !important;
+    font-style: italic !important;
+}
+.donation-tax-calc-typical_donation_cost_header{
+    font-size: 16px;
+}
 .donation-tax-calc-cost-message{
     background-color: green !important;
     color: white !important;

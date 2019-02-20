@@ -87,6 +87,7 @@ jQuery( document ).ready(function($) {
         if(isNaN(desired_credit) || isNaN(taxable_income)){
             $("#donation_amount").val("");
             $("#cost_of_donation").val("");
+            $("#typical_cost_of_donation").val("");
             return;
         }
 
@@ -96,9 +97,11 @@ jQuery( document ).ready(function($) {
         var state_tax = calculator.calculate_state_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status);
 
         net_cost_of_donation = calculator.calculate_cost_of_donation(desired_credit, federal_tax, state_tax, donation_amount); 
+        typical_net_cost_of_donation = calculator.calculate_cost_of_typical_donation(federal_tax, state_tax, donation_amount);
 
         console.log(`credit: ${desired_credit} fed: ${federal_tax}, state: ${state_tax}, donation: ${donation_amount}`);
         console.log(`net cost: ${net_cost_of_donation}`);
+        console.log(`typical cost of donation: ${typical_net_cost_of_donation}`);
 
         if(net_cost_of_donation < 0){
             $("#cost-message").addClass("donation-tax-calc-cost-message");
@@ -111,6 +114,7 @@ jQuery( document ).ready(function($) {
         }
 
         $("#cost_of_donation").text(`$${net_cost_of_donation.toLocaleString()}`);
+        $("#cost_of_typical_donation").text(`$${typical_net_cost_of_donation}`);
         $("#donation_amount").text(`$${donation_amount.toLocaleString()}`);
     });
 

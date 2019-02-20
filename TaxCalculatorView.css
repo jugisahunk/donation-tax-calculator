@@ -13,6 +13,14 @@
 .donation-tax-calc-sub-section-header {
     color: #be1d2c;
 }
+.donation_tax_calc-typical_donation_cost_section{
+    background-color: #e8ecf0;
+    text-align: center;
+    font-style: italic;
+}
+.donation-tax-calc-typical_donation_cost_header{
+    font-size: 16px;
+}
 .donation-tax-calc-submit-button {
     color: white; 
     background-color: #be1d2c; 
