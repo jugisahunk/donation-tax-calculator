@@ -38,13 +38,24 @@ class Calculator{
 
         return Math.max(single_max_tax_rate.percentage, married_max_tax_rate.percentage);
     }
+
     calculate_federal_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
-        var tax_bracket = this.get_tax_bracket("federal", taxable_income, filing_status);
+        var tax_bracket = this.get_tax_bracket(Government.FEDERAL, taxable_income, filing_status);
         return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
     }
 
+    calculate_typical_federal_tax_benefit(taxable_income, donation_amount, filing_status, is_pass_through) {
+        var tax_bracket = this.get_tax_bracket(Government.FEDERAL, taxable_income, filing_status);
+        return this._calculate_typical_tax(donation_amount, tax_bracket, is_pass_through);
+    }
+
+    calculate_typical_state_tax_benefit(taxable_income, donation_amount, filing_status) {
+        var tax_bracket = { "percentage" : this.get_max_state_tax_rate() };
+        return this._calculate_typical_tax(donation_amount, tax_bracket);
+    }
+
     calculate_state_tax_benefit(taxable_income, donation_amount, desired_credit, filing_status, is_pass_through) {
-        var tax_bracket = this.get_tax_bracket("state", taxable_income, filing_status);
+        var tax_bracket = this.get_tax_bracket(Government.STATE, taxable_income, filing_status);
         return this._calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through);
     }
 
@@ -72,6 +83,10 @@ class Calculator{
 
     _calculate_tax(donation_amount, desired_credit, tax_bracket, is_pass_through){
         return (donation_amount - desired_credit) * tax_bracket.percentage;
+    }
+
+    _calculate_typical_tax(donation_amount, tax_bracket, is_pass_through){
+        return Math.trunc(donation_amount * tax_bracket.percentage);
     }
 
     calculate_cost_of_donation(desired_credit, federal_tax_benefit, state_tax_benefit, donation){

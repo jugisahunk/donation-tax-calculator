@@ -213,7 +213,7 @@ describe("Donation Calculator", function(){
     });
 
     describe("given a state tax bracket", function(){
-        it("should return the maximum state tax rate found regardless of filing status", function(){
+        it("get_max_state_tax_rate should return the maximum state tax rate found regardless of filing status", function(){
             //arrange
             var expected_max_state_tax_rate = .05;
             //act
@@ -249,7 +249,7 @@ describe("Donation Calculator", function(){
                 expect(actual_tax_bracket).toEqual(expected_tax_bracket);
             });
 
-            it("should retrieve federal tax bracket rate and flat amount for max tax bracket", function(){
+            it("should retrieve federal tax bracket rate for max tax bracket", function(){
                 //arrange
                 var taxable_income = Number.MAX_SAFE_INTEGER;
                 var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".37")};
@@ -267,7 +267,7 @@ describe("Donation Calculator", function(){
                 federal_or_state = Calculator.Government.STATE;
             });
 
-            it("should retrieve state tax bracket rate and flat amount below top bracket", function(){
+            it("should retrieve state tax bracket rate below top bracket", function(){
                 //arrange
                 var taxable_income = 5000;
                 var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".04")};
@@ -279,7 +279,7 @@ describe("Donation Calculator", function(){
                 expect(actual_tax_bracket).toEqual(expected_tax_bracket);
             });
 
-            it("should retrieve state tax bracket rate and flat amount for max tax bracket", function(){
+            it("should retrieve state tax bracket rate for max tax bracket", function(){
                 //arrange
                 var taxable_income = Number.MAX_SAFE_INTEGER;
                 var expected_tax_bracket = {"filing_status" : filing_status, "federal_or_state" : federal_or_state, "percentage" : parseFloat(".05")};
@@ -292,6 +292,42 @@ describe("Donation Calculator", function(){
             });
         });
     });
+
+    describe("given a typical 501(c)(3) entity, taxable income, and donation amount ", function(){
+        var donation_amount, desired_credit;
+
+        beforeEach(function(){
+            donation_amount = 66667;
+            taxable_income = 250000;
+        });
+
+        describe("filing married, pass-through entity", function(){
+            it("should calculate a federal tax benefit: (donation amount * bracket percentage)", function(){
+                //arrange
+                var filing_status = Calculator.FilingStatus.MARRIED;
+                var expected_result = Math.trunc(.24 * donation_amount);
+
+                //act
+                var actual_result = calculator.calculate_typical_federal_tax_benefit(taxable_income, donation_amount, filing_status);
+                //assert
+                
+                expect(actual_result).toEqual(expected_result);
+            });
+
+            it("should calculate a state tax benefit: (donation amount * max bracket percentage)", function(){
+                //arrange
+                var filing_status = Calculator.FilingStatus.MARRIED;
+                var expected_result = 3333; // Math.trunc(.05 * donation_amount)
+                var taxable_income = 100;
+
+                //act
+                var actual_result = calculator.calculate_typical_state_tax_benefit(taxable_income, donation_amount);
+                //assert
+                
+                expect(actual_result).toEqual(expected_result);
+            });
+        });
+    })
 
     describe("given a taxable income, donation amount, desired credit", function(){
         var donation_amount, desired_credit;
@@ -352,7 +388,7 @@ describe("Donation Calculator", function(){
                 expect(actual_fed_tax_benefit).toEqual(expected_fed_tax_benefit);
             });
 
-            it("should calculate a state tax benefit: (donation amount - desired credit) * bracket % + bracket flat amount", function(){
+            it("should calculate a state tax benefit: (donation amount - desired credit) * bracket %", function(){
                 //arrange
                 var taxable_income = 30000;
                 var expected_state_benefit = (donation_amount - desired_credit) * .05;
