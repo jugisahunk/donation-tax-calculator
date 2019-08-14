@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4">
+                <div class="col-xs-12">
                     <h4 class="donation-tax-calc-sub-section-header">Select Status</h4>
                     <div class="radio">
                         <label>
@@ -60,7 +60,9 @@
                             <input type="radio" name="status" id="status-married" value="married" />Married (filing jointly)</label>
                     </div>
                 </div>
-                <div class="col-xs-4">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
                     <h4 class="donation-tax-calc-sub-section-header">Are you a pass through business?</h4>
                     <div class="radio">
                         <label>
@@ -80,12 +82,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4">
+                <div class="col-xs-12">
                     <h4 class="donation-tax-calc-sub-section-header">Desired Tax Credit</h4>
                     <div style="font-style: italic" id="max_credit"></div>
                     <input type="number" id="desired_credit">
                 </div>
-                <div class="col-xs-8">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
                     <h4 class="donation-tax-calc-sub-section-header">Taxable Income</h4>
                     <div style="font-style: italic" >Gross income less any adjustments and deductions - standard or itemized</div>
                     <input type="number" id="taxable_income">
@@ -105,7 +109,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-2">&nbsp;</div>
                 <div id="cost-message" class="donation-tax-calc-cost-message hidden col-xs-8">
                     <h3>Your donation will make you money!</h3>
                     <div style="font-style: italic;">A negative cost indicates a positive result</div>
@@ -113,27 +116,28 @@
                 <div class="col-xs-2">&nbsp;</div>
             </div>
             <div class="row">
-                <div class="col-xs-2">&nbsp;</div>
-                <div class="col-xs-4">
+                <div class="col-xs-8">
                     <h3 class="donation-tax-calc-sub-section-header">Donation Amount</h3>
                     <h3 style="color: black;" id="donation_amount"></h3>
                 </div>
-                <div class="col-xs-4">
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
                     <h3 id="cost_header" class="donation-tax-calc-sub-section-header">Net cost of donation</h3>
                     <h3 style="color: black;" id="cost_of_donation"></h3>
                 </div>      
-                <div class="col-xs-2">&nbsp;</div>
             </div>
             <div class="row">
-                <div class="col-xs-2">&nbsp;</div>
-                <div class="col-xs-8 donation_tax_calc-typical_donation_cost_section">
+                <div class="col-xs-1">&nbsp;</div>
+                <div class="col-xs-10 donation_tax_calc-typical_donation_cost_section">
                     <h3 class="donation-tax-calc-typical_donation_cost_header" id="typical_cost_header" >
                         Net cost to donate to a regular, charitable organization (e.g., social agency, United Way, school, church, etc.)
                     </h3>
-                    <h3 class="donation-tax-calc-typical-donation" id="cost_of_typical_donation"></h3>
+                        <h3 class="donation-tax-calc-typical-donation" id="cost_of_typical_donation"></h3>
                 </div>      
-                <div class="col-xs-2">&nbsp;</div>
+                <div class="col-xs-1">&nbsp;</div>
             </div>
+        </div>
     </body>
 
 </html>
