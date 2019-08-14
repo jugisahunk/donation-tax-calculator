@@ -1,0 +1,64 @@
+/*
+Theme Name: osfkids
+Theme URI: yoururl
+Author: Jason Knight
+Version: 1.0 
+.
+.
+.
+*/
+
+.donation-tax-calc-main_header {
+    color: #be1d2c; 
+    font-size: 22px !important;
+}
+
+.donation-tax-calc-description {
+    font-style: italic !important;
+}
+.donation-tax-calc-section-header {
+    color: white !important; 
+    background-color: #be1d2c !important; 
+    padding: 5px !important;
+}
+.donation-tax-calc-sub-section-header {
+    color: #be1d2c !important;
+    font-size: 22px !important;
+}
+.donation-tax-calc-submit-button {
+    color: white !important; 
+    background-color: #4a97c2 !important; 
+    border: #4a97c2 !important;
+}
+.donation_tax_calc-typical_donation_cost_section{
+    background-color: #e8ecf0 !important;
+    text-align: center !important;
+    font-style: italic !important;
+    border-color: #be1d2c !important;
+    border-style: solid !important;
+    margin-bottom: 10px !important;
+}
+.donation-tax-calc-typical_donation_cost_header{
+    font-size: 16px;
+}
+.donation-tax-calc-cost-message{
+    background-color: green !important;
+    color: white !important;
+    text-align: center !important;
+    font-size: 22px !important;
+    padding: 5px; !important;
+    margin-top: 0px; !important;
+    margin-bottom: 0px; !important;
+}
+.donation-tax-calc-cost-message h3{
+    margin-top: 0px; !important;
+    margin-bottom: 0px; !important;
+}
+.donation-tax-calc-typical-donation{
+    color: black !important; 
+    font-weight: bold !important; 
+    font-size: 26px !important;
+}
+.hidden{
+    display: none !important;
+}
